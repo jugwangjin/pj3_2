@@ -93,9 +93,9 @@ lock_acquire (&pinning_lock);
 	  break;
       }
     }
+    old_level = intr_disable ();
     bool dirty;
     dirty = pagedir_is_dirty (pd, ste->uaddr);
-    old_level = intr_disable (); 
     clock_hand = fte->kaddr;
     pagedir_set_dirty (pd, fte->uaddr, false);
     pagedir_set_accessed (pd, fte->uaddr, false);

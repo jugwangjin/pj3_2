@@ -93,15 +93,14 @@ make_spage_for_stack_growth (struct hash *spage_table, void *fault_addr)
 }
 
 bool
-spage_free_page (void *uaddr, struct hash *spage_table)
+spage_free_page (void *uaddr, struct thread *t)
 {
   struct spage_table_entry search_ste;
   struct spage_table_entry *ste;
   struct hash_elem *e;
-  struct thread *t = thread_current ();
   struct mapid_element *mapid_elem;
   search_ste.uaddr = uaddr;
-  e = hash_delete (spage_table, &search_ste.hash_elem);
+  e = hash_delete (&t->spage_table, &search_ste.hash_elem);
 lock_acquire (&frame_lock);
   if (e != NULL)
   {

@@ -513,12 +513,13 @@ munmap_close (int mapid)
         struct fd_element* fd_elem = fd_to_fd_element (mapid_elem->fd);
         list_remove (&mapid_elem->elem);
         palloc_free_page (&mapid_elem->elem); 
-        if(fd_elem != NULL)
+/*        if(fd_elem != NULL)
         {
           file_close (fd_elem->file);
           list_remove (&fd_elem->elem);
           palloc_free_page (fd_elem);
         } 
-      }
+*/      }
+
 }
 

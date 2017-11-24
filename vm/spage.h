@@ -29,7 +29,7 @@ struct spage_table_entry *get_spage (struct hash *spage_table, void *uaddr);
 bool make_spage_for_stack_growth (struct hash *spage_table, void *esp);
 bool load_file (struct spage_table_entry *ste, void *frame);
 bool spage_get_frame (struct spage_table_entry *ste);
-bool spage_free_page (void *uaddr, struct hash *spage_table);
+bool spage_free_page (void *uaddr, struct thread *t);
 bool spage_mmap (struct file *file, void *addr);
 void spage_munmap (void *addr);
 void spage_destroy (struct hash *spage_table);

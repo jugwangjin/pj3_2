@@ -210,6 +210,17 @@ process_exit (void)
     file_close(fd_elem->file);
     palloc_free_page (fd_elem);
   }
+  if(cur -> executing_file != NULL)
+    file_close (cur -> executing_file);
+  if(is_thread_ext(parent) && parent->status != THREAD_DYING)
+  {
+    if(tid == parent->wait_tid)
+    {
+      parent->wait_tid = 0;
+      sema_up(&(parent->wait_sema));
+    }
+  }
+
 /*
   for (e = list_begin (&(cur->fd_table)); e != list_end (&(cur->fd_table)); e = list_next (e))
   {
@@ -245,7 +256,7 @@ printf("palloc free oo\n");
       pagedir_activate (NULL);
       pagedir_destroy (pd);
     }
-  if(cur -> executing_file != NULL)
+/*  if(cur -> executing_file != NULL)
     file_close (cur -> executing_file);
   if(is_thread_ext(parent) && parent->status != THREAD_DYING)
   {
@@ -254,7 +265,7 @@ printf("palloc free oo\n");
       parent->wait_tid = 0;
       sema_up(&(parent->wait_sema));
     }
-  }
+  }*/
 }
 
 /* Sets up the CPU for running user code in the current
